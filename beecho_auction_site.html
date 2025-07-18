@@ -1,195 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beecho.com - Smart Auction Marketplace</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beecho - Auction Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #ff6b00;
-      --secondary: #333;
-      --bg: #f9f9f9;
-      --card-bg: #fff;
-      --radius: 10px;
-    }
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
+
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
     }
+
     header {
-      background-color: var(--primary);
-      color: white;
-      padding: 1rem 2rem;
+      background: #4a148c;
+      color: #fff;
+      padding: 20px;
       text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+
     header h1 {
-      margin: 0;
       font-size: 2rem;
     }
-    header p {
-      margin: 0.3rem 0 0;
-      font-weight: 300;
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #6a1b9a;
+      padding: 10px;
     }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      padding: 30px 20px;
+      max-width: 1100px;
+      margin: auto;
     }
+
     .product {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: 0.3s;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
     }
-    .product:hover {
-      transform: translateY(-5px);
+
+    .product h3 {
+      color: #4a148c;
     }
-    .product img {
+
+    .product input,
+    .product button {
+      margin-top: 10px;
+      padding: 8px;
       width: 100%;
-      border-radius: var(--radius);
-    }
-    .product h2 {
-      font-size: 1.2rem;
-      margin: 0.7rem 0 0.3rem;
-    }
-    .product p {
-      font-size: 0.95rem;
-      color: var(--secondary);
-    }
-    .bid-section {
-      margin-top: 1rem;
-    }
-    input, button {
-      width: 100%;
-      padding: 0.6rem;
-      margin: 0.4rem 0;
-      font-size: 1rem;
-      border-radius: var(--radius);
       border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    button {
-      background-color: var(--primary);
+
+    .product button {
+      background: #4a148c;
       color: white;
-      border: none;
+      font-weight: bold;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #e65c00;
+
+    .product button:hover {
+      background: #6a1b9a;
     }
+
     footer {
-      background-color: #222;
-      color: #ccc;
       text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
+      padding: 20px;
+      background: #eee;
+      margin-top: 40px;
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <h1>Beecho.com</h1>
-    <p>Sell Smarter, Bid Better – Your Trusted Auction Platform</p>
+    <h1>Welcome to Beecho.com</h1>
+    <p>Your trusted platform for bidding on quality products</p>
   </header>
 
-  <section class="container">
-    <!-- Product Template -->
-    <div class="product">
-      <img src="https://via.placeholder.com/400x250" alt="Refurbished Phone">
-      <h2>Refurbished Phone</h2>
-      <p>Base Price: ₹2,000</p>
-      <p id="timer">Auction Ends In: <strong>Loading...</strong></p>
-      <div class="bid-section">
-        <form id="bid-form">
-          <input type="text" id="name" placeholder="Your Name" required>
-          <input type="tel" id="mobile" placeholder="Your Mobile Number" required>
-          <input type="number" id="bid" placeholder="Your Bid Amount ₹" required>
-          <button type="submit">Submit Bid</button>
-        </form>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="container">
+    <section id="products">
+      <h2 style="margin-bottom: 20px;">Live Products</h2>
+
+      <div class="product">
+        <h3>Repaired Smart Watch</h3>
+        <p>Condition: Excellent | Starting Bid: ₹1200</p>
+        <input type="text" placeholder="Your Bid Amount (₹)" />
+        <button>Submit Your Bid</button>
       </div>
-    </div>
-  </section>
+
+      <div class="product">
+        <h3>Refurbished Bluetooth Speaker</h3>
+        <p>Condition: Good | Starting Bid: ₹800</p>
+        <input type="text" placeholder="Your Bid Amount (₹)" />
+        <button>Submit Your Bid</button>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form action="https://formspree.io/f/your-form-id" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="mobile" placeholder="Your Mobile Number" required />
+        <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
 
   <footer>
-    &copy; 2025 Beecho.com – All rights reserved.
+    <p>&copy; 2025 Beecho.com | Designed by Nitin Verma</p>
   </footer>
-
-  <script>
-    // TIMER - 4 day cycle
-    const timerDisplay = document.getElementById("timer");
-    const BID_FORM = document.getElementById("bid-form");
-
-    function getRemainingTime(targetTime) {
-      const now = new Date().getTime();
-      const diff = targetTime - now;
-      if (diff <= 0) return null;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    function startTimer() {
-      let auctionEnd = localStorage.getItem("auctionEnd");
-      if (!auctionEnd) {
-        const end = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
-        localStorage.setItem("auctionEnd", end);
-        auctionEnd = end;
-      }
-
-      setInterval(() => {
-        const timeLeft = getRemainingTime(auctionEnd);
-        if (timeLeft) {
-          timerDisplay.innerHTML = `Auction Ends In: <strong>${timeLeft}</strong>`;
-        } else {
-          timerDisplay.innerHTML = `Auction restarting...`;
-          setTimeout(() => {
-            const newEnd = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
-            localStorage.setItem("auctionEnd", newEnd);
-          }, 2000);
-        }
-      }, 1000);
-    }
-
-    startTimer();
-
-    // STORE bid to Google Sheet (via no-code tool like Sheet.best)
-    BID_FORM.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const mobile = document.getElementById("mobile").value;
-      const bid = document.getElementById("bid").value;
-
-      fetch("https://sheet.best/api/sheets/YOUR-SHEET-ID", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          Name: name,
-          Mobile: mobile,
-          Bid: bid,
-          Product: "Refurbished Phone",
-          Timestamp: new Date().toLocaleString()
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert("Your bid has been submitted successfully!");
-        BID_FORM.reset();
-      })
-      .catch(err => alert("There was an error submitting your bid."));
-    });
-  </script>
-
 </body>
+
 </html>
