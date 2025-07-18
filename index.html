@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beecho.com - Smart Auction Marketplace</title>
+  <style>
+    :root {
+      --primary: #ff6b00;
+      --secondary: #333;
+      --bg: #f9f9f9;
+      --card-bg: #fff;
+      --radius: 10px;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0.3rem 0 0;
+      font-weight: 300;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .product {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      border-radius: var(--radius);
+    }
+    .product h2 {
+      font-size: 1.2rem;
+      margin: 0.7rem 0 0.3rem;
+    }
+    .product p {
+      font-size: 0.95rem;
+      color: var(--secondary);
+    }
+    .bid-section {
+      margin-top: 1rem;
+    }
+    input, button {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.4rem 0;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e65c00;
+    }
+    footer {
+      background-color: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Beecho.com</h1>
+    <p>Sell Smarter, Bid Better – Your Trusted Auction Platform</p>
+  </header>
+
+  <section class="container">
+    <!-- Product Template -->
+    <div class="product">
+      <img src="https://via.placeholder.com/400x250" alt="Refurbished Phone">
+      <h2>Refurbished Phone</h2>
+      <p>Base Price: ₹2,000</p>
+      <p id="timer">Auction Ends In: <strong>Loading...</strong></p>
+      <div class="bid-section">
+        <form id="bid-form">
+          <input type="text" id="name" placeholder="Your Name" required>
+          <input type="tel" id="mobile" placeholder="Your Mobile Number" required>
+          <input type="number" id="bid" placeholder="Your Bid Amount ₹" required>
+          <button type="submit">Submit Bid</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Beecho.com – All rights reserved.
+  </footer>
+
+  <script>
+    // TIMER - 4 day cycle
+    const timerDisplay = document.getElementById("timer");
+    const BID_FORM = document.getElementById("bid-form");
+
+    function getRemainingTime(targetTime) {
+      const now = new Date().getTime();
+      const diff = targetTime - now;
+      if (diff <= 0) return null;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    function startTimer() {
+      let auctionEnd = localStorage.getItem("auctionEnd");
+      if (!auctionEnd) {
+        const end = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
+        localStorage.setItem("auctionEnd", end);
+        auctionEnd = end;
+      }
+
+      setInterval(() => {
+        const timeLeft = getRemainingTime(auctionEnd);
+        if (timeLeft) {
+          timerDisplay.innerHTML = `Auction Ends In: <strong>${timeLeft}</strong>`;
+        } else {
+          timerDisplay.innerHTML = `Auction restarting...`;
+          setTimeout(() => {
+            const newEnd = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
+            localStorage.setItem("auctionEnd", newEnd);
+          }, 2000);
+        }
+      }, 1000);
+    }
+
+    startTimer();
+
+    // STORE bid to Google Sheet (via no-code tool like Sheet.best)
+    BID_FORM.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
+      const bid = document.getElementById("bid").value;
+
+      fetch("https://sheet.best/api/sheets/YOUR-SHEET-ID", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Name: name,
+          Mobile: mobile,
+          Bid: bid,
+          Product: "Refurbished Phone",
+          Timestamp: new Date().toLocaleString()
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Your bid has been submitted successfully!");
+        BID_FORM.reset();
+      })
+      .catch(err => alert("There was an error submitting your bid."));
+    });
+  </script>
+
+</body>
+</html>
